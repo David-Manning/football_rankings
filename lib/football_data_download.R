@@ -127,7 +127,8 @@ df_football_season <- df_football_season %>%
 # Combine
 df_football_wide <- bind_rows(df_football_country, df_football_season) %>%
 	mutate(home_goals = as.numeric(home_goals),
-		   away_goals = as.numeric(away_goals))
+		   away_goals = as.numeric(away_goals),
+		   grouping_identifier = paste0(season, " ", country, " ", league))
 
 # Make a long version for modelling
 df_football_home <- df_football_wide %>%
@@ -151,10 +152,11 @@ df_football_away <- df_football_wide %>%
 
 # Combine both perspectives
 df_football_long <- bind_rows(df_football_home, df_football_away) %>%
-	select(country, league, season, date, time, year, month, day, hour, minute, team_name, opponent_name, at_home, team_goals, opponent_goals, team_win, opponent_avoid_loss)
+	select(country, league, season, date, time, year, month, day, hour, minute, team_name, opponent_name, at_home, team_goals, opponent_goals, team_win, opponent_avoid_loss, grouping_identifier)
 
 
 # Save data
 write_parquet(df_football_wide, "data/cleaned_data/all_matches_wide.parquet")
 write_parquet(df_football_long, "data/cleaned_data/all_matches_long.parquet")
 
+str(df_football_long)
