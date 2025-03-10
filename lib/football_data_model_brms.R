@@ -21,6 +21,7 @@ for(i in grouping_ids)
 	df_football <- df_football_long %>%
 		filter(grouping_identifier == i)
 
+
 	# Sample
 	priors <- c(prior(normal(0, 0.3), class = "Intercept"),
 				prior(normal(0.2, 0.2), class = "b", coef = "at_home"),
