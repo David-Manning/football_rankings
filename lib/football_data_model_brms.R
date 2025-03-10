@@ -14,6 +14,10 @@ df_football_long <- read_parquet("data/cleaned_data/all_matches_long.parquet") %
 		   grouping_identifier = str_replace_all(grouping_identifier, "/", "-")) %>%
 	filter(!season %in% c("2025", "2024-2025")) # Current season causes issues
 
+# Create output folder if not present - probably deleted when pushing to Github
+if (!dir.exists("data/output_tables")) dir.create("data/output_tables")
+
+
 # Loop over every grouping identifier
 grouping_ids <- unique(df_football_long$grouping_identifier)
 for(i in grouping_ids)
