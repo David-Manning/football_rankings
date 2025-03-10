@@ -26,3 +26,8 @@ All data are taken from www.football-data.co.uk and processed lib/football_data_
 
 Matches which do not have scored are removed, and only league matches are reported (i.e. they do not have data on cup matches). All league matches that are completed and on football-data.co.uk are included in the models.
 
+## Usage
+There are three R scripts: `football_data_download.R`, `football_data_model_brms.R`, `football_data_process_output.R`. These should be run in order. Data from football-data.co.uk are pushed to Github, so the download file can be skipped (running it will bring in the latest data).
+
+## Motivation
+I am using this to test a workflow in Github and sharing model outputs on Shiny.
