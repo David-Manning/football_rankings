@@ -10,7 +10,8 @@ library(tidybayes)
 
 # Load data
 df_football_long <- read_parquet("data/cleaned_data/all_matches_long.parquet") %>%
-	mutate(season = str_replace_all(season, "/", "-")) %>%
+	mutate(season = str_replace_all(season, "/", "-"),
+		   unique_identifier = str_replace_all(unique_identifier, "/", "-")) %>%
 	filter(!season %in% c("2025", "2024-2025")) # Current season causes issues
 
 # Loop over every grouping identifier
