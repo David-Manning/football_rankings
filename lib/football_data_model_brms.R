@@ -21,6 +21,11 @@ for(i in grouping_ids)
 	df_football <- df_football_long %>%
 		filter(grouping_identifier == i)
 
+	# Get country, season, league
+	group_data <- df_football_wide %>% filter(grouping_identifier == i) %>% select(country, league, season) %>% slice(1)
+	country <- group_data$country
+	league <- group_data$league
+	season <- group_data$season
 
 	# Sample
 	priors <- c(prior(normal(0, 0.3), class = "Intercept"),
