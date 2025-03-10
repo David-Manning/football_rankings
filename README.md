@@ -20,3 +20,9 @@ These rankings follow the same basic principles:
 
 6) Injuries, transfers, and managerial changes should still count towards adjusting the team's overall strength - avoiding injuries is an important part of the game.
 
+## Data Sources
+
+All data are taken from www.football-data.co.uk and processed lib/football_data_download.R.
+
+Matches which do not have scored are removed, and only league matches are reported (i.e. they do not have data on cup matches). All league matches that are completed and on football-data.co.uk are included in the models.
+
