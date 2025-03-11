@@ -7,6 +7,7 @@ library(rstan)
 library(ggplot2)
 library(brms)
 library(tidybayes)
+library(extraDistr)
 
 # Load data
 df_football_long <- read_parquet("data/cleaned_data/all_matches_long.parquet") %>%
@@ -20,7 +21,7 @@ if (!dir.exists("data/output_tables")) dir.create("data/output_tables")
 
 # Loop over every grouping identifier
 grouping_ids <- unique(df_football_long$grouping_identifier)
-for(i in grouping_ids)
+for(i in grouping_ids[50])
 {
 
 	# Filter data
@@ -48,7 +49,7 @@ for(i in grouping_ids)
 			   backend = "cmdstanr")
 
 	# Process and save
-	fit %>%
+	df_posteriors <- fit %>%
 		tidybayes::spread_draws(b_at_home, b_Intercept, r_team_name[team_name,], r_opponent_name[opponent_name,]) %>%
 		mutate(grouping_identifier = i,
 			   country = country,
@@ -68,8 +69,8 @@ for(i in grouping_ids)
 			   percentage = exp(raw_value)) %>%
 		as.data.frame() %>%
 		select(.chain, .iteration, .draw, parameter, club, raw_value, percentage, grouping_identifier, country, league, season) %>%
-		as.data.frame()	%>%
-		write_parquet(paste0("data/output_tables/", i, ".parquet"))
+		as.data.frame()
 
 }
 
+#TODO: Use extraDistr to estimate GEV for each distribution and save it
